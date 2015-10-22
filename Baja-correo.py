@@ -7,8 +7,8 @@ import smtplib
 # User and password for mail
 
 def sendmail(solapin_baja):
-    user = "carlos.vergel@cnic.edu.cu"
-    user_pwd = "c4rlos"
+    user = "ums@cnic.edu.cu"
+    user_pwd = "123456"
     TO = 'carlos.vergel@cnic.edu.cu'
     SUBJECT = "Usuarios Bajas de UMS"
     TEXT = 'El usuario %s fue dado de baja por Economia y de los Servicios de Red' %solapin_baja
