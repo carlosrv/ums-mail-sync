@@ -24,7 +24,7 @@ def sendmail(solapin_baja):
     print ('email sent')
 
 # Connect to Mysql - UMS Accounts
-ums_accounts_conn = MySQLdb.connect(host="10.37.1.31",  # your host, usually localhost
+ums_accounts_conn = MySQLdb.connect(host="10.37.1.31",  # mysql host
                                     user="ums",  # your username
                                     passwd="umscn1c",  # your password
                                     db="ums")  # name of the data base
@@ -58,13 +58,16 @@ def is_baja(solapin_ums):
 
 
 usuarios_a_dar_baja = []
+user_name = []
 
 for row_ums in cur_ums_accounts:
     if row_ums[10] and row_ums[1] == 1:
         solapin_ums = row_ums[10]
+        name_ums = row_ums[5]
         # print 'solapin ums: ', solapin_ums
         if is_baja(solapin_ums) == 1:
             usuarios_a_dar_baja.append(solapin_ums.strip())
+            user_name.append(name_ums)
 
 # Cerrar la conexion con la db
 cur_ums_accounts.close()
