@@ -23,7 +23,6 @@ def sendmail(solapin_baja):
     server.sendmail(user, [TO], BODY)
     print ('email sent')
 
-
 # Connect to Mysql - UMS Accounts
 ums_accounts_conn = MySQLdb.connect(host="10.37.1.31",  # your host, usually localhost
                                     user="ums",  # your username
