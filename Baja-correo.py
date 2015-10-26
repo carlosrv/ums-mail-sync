@@ -7,12 +7,12 @@ import smtplib
 # User and password for mail
 
 def sendmail(solapin_baja):
-    user = "ums@cnic.edu.cu"
-    user_pwd = "123456"
-    TO = 'carlos.vergel@cnic.edu.cu'
-    SUBJECT = "Usuarios Bajas de UMS"
-    TEXT = 'El usuario %s fue dado de baja por Economia y de los Servicios de Red' %solapin_baja
-    server = smtplib.SMTP('correo.cnic.edu.cu')
+    user = email_user
+    user_pwd = email_pass
+    TO = email_to
+    SUBJECT = email_subject
+    TEXT = email_body %solapin_baja
+    server = smtplib.SMTP(email_host)
     server.ehlo()
     server.starttls()
     server.login(user, user_pwd)
@@ -24,18 +24,17 @@ def sendmail(solapin_baja):
     print ('email sent')
 
 # Connect to Mysql - UMS Accounts
-ums_accounts_conn = MySQLdb.connect(host="10.37.1.31",  # mysql host
-                                    user="ums",  # your username
-                                    passwd="umscn1c",  # your password
-                                    db="ums")  # name of the data base
+ums_accounts_conn = MySQLdb.connect(host=ums_host,  # your host, usually localhost
+                                    user=ums_user,  # your username
+                                    passwd=ums_pass,  # your password
+                                    db=ums_db)  # name of the data base
 
 
 #  Assets de RECURSOS HUMANOS
-econ_accounts_conn = pymssql.connect(host='10.36.34.247',
-                                     user='user_assetsp',
-                                     password='super2015*',
-                                     database='RH_Assets')
-
+econ_accounts_conn = pymssql.connect(host=eco_host,
+                                     user=eco_user,
+                                     password=eco_pass,
+                                     database=eco_db)
 
 # UMS cursors
 cur_ums_accounts = ums_accounts_conn.cursor()
@@ -49,7 +48,6 @@ def is_baja(solapin_ums):
     cur_eko_accounts = econ_accounts_conn.cursor()
     cur_eko_accounts.execute("SELECT * FROM Empleados_Gral WHERE Id_Empleado = %d", solapin_ums)
     for row_eko in cur_eko_accounts:
-        solapin_eko = row_eko[1]
         if row_eko[21] == 1:
             return 1
     return 0
