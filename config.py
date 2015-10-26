@@ -3,21 +3,21 @@
 __author__ = 'josecarlos'
 
 #UMS
-ums_host = "10.37.1.31"
-ums_user = "ums"
-ums_pass = "umscn1c"
-ums_db = "ums"
+ums_host = "mysql.example.edu.cu"
+ums_user = "user"
+ums_pass = "pass"
+ums_db = "db"
 
 #Economia
-eco_host = '10.36.34.247'
-eco_user = 'user_assetsp'
-eco_pass = 'super2015*'
-eco_db = 'RH_Assets'
+eco_host = '10.37.34.247'
+eco_user = 'user'
+eco_pass = 'pass'
+eco_db = 'db'
 
 #Email
-email_host = "correo.cnic.edu.cu"
-email_user = "ums@cnic.edu.cu"
+email_host = "correo.example.edu.cu"
+email_user = "ums@example.edu.cu"
 email_pass = "123456"
-email_to = "carlos.vergel@cnic.edu.cu"
+email_to = "red@example.edu.cu"
 email_subject = "Usuarios Bajas de UMS"
 email_body = 'El usuario %s fue dado de baja por Economia y de los Servicios de Red'
