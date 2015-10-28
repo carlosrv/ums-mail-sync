@@ -8,21 +8,22 @@ from config import *
 # User and password for mail
 
 def sendmail(solapin_baja, name, lastname, area):
-    user = email_user
-    user_pwd = email_pass
-    TO = email_to
-    SUBJECT = email_subject
+    # user = email_user
+    # user_pwd = email_pass
+    # TO = email_to
+    # SUBJECT = email_subject
     TEXT = email_body % (name, lastname, area, solapin_baja)
-    server = smtplib.SMTP(email_host)
-    server.ehlo()
-    server.starttls()
-    server.login(user, user_pwd)
-    BODY = '\r\n'.join(['To: %s' % TO,
-       'From: %s' % user,
-       'Subject: %s' % SUBJECT,
-       '', TEXT])
-    server.sendmail(user, [TO], BODY)
-    print ('email sent')
+    # server = smtplib.SMTP(email_host)
+    # server.ehlo()
+    # server.starttls()
+    # server.login(user, user_pwd)
+    # BODY = '\r\n'.join(['To: %s' % TO,
+    #    'From: %s' % user,
+    #    'Subject: %s' % SUBJECT,
+    #    '', TEXT])
+    # server.sendmail(user, [TO], BODY)
+    # print ('email sent')
+    print TEXT
 
 # Connect to Mysql - UMS Accounts
 ums_accounts_conn = MySQLdb.connect(host=ums_host,  # your host, usually localhost
@@ -83,11 +84,11 @@ cur_ums_accounts.close()
 
 # recorrr la lista de los usuarios a dar baja en UMS y enviar correo
 # Dar baja de UMS ponerlo inactivo
-def ums_baja(solapin_baja, user_name, dir_name, last_name):
+def ums_baja(solapin_baja):
     cur_ums_accounts = ums_accounts_conn.cursor()
     # cur_ums_accounts.execute("UPDATE accounts_account SET active=0 WHERE entity_ID ='%s'" % (solapin_baja))
     cur_ums_accounts.close()
-    sendmail(solapin_baja, user_name, last_name, dir_name)
+    # sendmail(solapin_baja, user_name, last_name, dir_name)
     return 1
 
 def mail_baja(id_baja, table, active, list, number_row):
@@ -110,15 +111,15 @@ for suspend_service in usuarios_a_dar_baja:
     user_name = suspend_service[1]
     dir_name = suspend_service[3]
     apellidos = suspend_service[4]
-    if ums_baja(solapin_baja, user_name, dir_name, apellidos) == 1:
-        print suspend_service
+    if ums_baja(solapin_baja) == 1:
+        # print suspend_service
         mail_baja(id_baja, 'accounts_mailaccount', 'mail_active', usermail_baja, 5)
         mail_baja(id_baja, 'accounts_jabberaccount', 'jabber_active', userjabber_baja, 4)
         mail_baja(id_baja, 'accounts_proxyaccount', 'proxy_active', userproxy_baja, 4)
+        sendmail(solapin_baja, user_name, apellidos, dir_name)
 
 
-
-print usuarios_a_dar_baja
+# print usuarios_a_dar_baja
 print usermail_baja
-print userproxy_baja
-print userjabber_baja
+# print userproxy_baja
+# print userjabber_baja
