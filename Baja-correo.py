@@ -83,11 +83,11 @@ cur_ums_accounts.close()
 
 # recorrr la lista de los usuarios a dar baja en UMS y enviar correo
 # Dar baja de UMS ponerlo inactivo
-def ums_baja(solapin_baja):
+def ums_baja(solapin_baja, user_name, dir_name, last_name):
     cur_ums_accounts = ums_accounts_conn.cursor()
     # cur_ums_accounts.execute("UPDATE accounts_account SET active=0 WHERE entity_ID ='%s'" % (solapin_baja))
     cur_ums_accounts.close()
-    sendmail(solapin_baja)
+    sendmail(solapin_baja, user_name, last_name, dir_name)
     return 1
 
 def mail_baja(id_baja, table, active, list, number_row):
