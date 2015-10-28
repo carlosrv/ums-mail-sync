@@ -107,7 +107,10 @@ def mail_baja(id_baja, table, active, list, number_row):
 for suspend_service in usuarios_a_dar_baja:
     solapin_baja = suspend_service[0]
     id_baja = suspend_service[2]
-    if ums_baja(solapin_baja) == 1:
+    user_name = suspend_service[1]
+    dir_name = suspend_service[3]
+    apellidos = suspend_service[4]
+    if ums_baja(solapin_baja, user_name, dir_name, apellidos) == 1:
         print suspend_service
         mail_baja(id_baja, 'accounts_mailaccount', 'mail_active', usermail_baja, 5)
         mail_baja(id_baja, 'accounts_jabberaccount', 'jabber_active', userjabber_baja, 4)
