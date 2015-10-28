@@ -7,12 +7,12 @@ import smtplib
 from config import *
 # User and password for mail
 
-def sendmail(solapin_baja, name, lastname, area):
+def sendmail(solapin_baja, name, lastname, area, services_mail, services_jabber, service_proxy):
     # user = email_user
     # user_pwd = email_pass
     # TO = email_to
     # SUBJECT = email_subject
-    TEXT = email_body % (name, lastname, area, solapin_baja)
+    TEXT = email_body % (name, lastname, area, solapin_baja, services_mail, services_jabber, service_proxy)
     # server = smtplib.SMTP(email_host)
     # server.ehlo()
     # server.starttls()
@@ -74,7 +74,8 @@ for row_ums in cur_ums_accounts:
             cur_ums_accounts.execute("SELECT * FROM accounts_department WHERE area_id='%s'" % departament_id)
             for depart_name in cur_ums_accounts:
                 departament_name = depart_name[1]
-            usuarios_a_dar_baja.append([solapin_ums.strip(), name_ums.strip(), int(account_id), departament_name, last_name_ums])
+            usuarios_a_dar_baja.append(
+                [solapin_ums.strip(), name_ums.strip(), int(account_id), departament_name, last_name_ums])
 
 
 # Cerrar la conexion con la db
@@ -90,6 +91,7 @@ def ums_baja(solapin_baja):
     cur_ums_accounts.close()
     # sendmail(solapin_baja, user_name, last_name, dir_name)
     return 1
+
 
 def mail_baja(id_baja, table, active, list, number_row):
     cur_ums_mail = ums_accounts_conn.cursor()
@@ -110,7 +112,6 @@ def mail_baja(id_baja, table, active, list, number_row):
     return 1
 
 
-
 for suspend_service in usuarios_a_dar_baja:
     solapin_baja = suspend_service[0]
     id_baja = suspend_service[2]
@@ -122,10 +123,22 @@ for suspend_service in usuarios_a_dar_baja:
         mail_baja(id_baja, 'accounts_mailaccount', 'mail_active', usermail_baja, 5)
         mail_baja(id_baja, 'accounts_jabberaccount', 'jabber_active', userjabber_baja, 4)
         mail_baja(id_baja, 'accounts_proxyaccount', 'proxy_active', userproxy_baja, 4)
-        # sendmail(solapin_baja, user_name, apellidos, dir_name)
+
+        services_mail = ''
+        services_jabber = ''
+        services_proxy = ''
+
+        if id_baja in usermail_baja:
+            services_mail = ','.join(usermail_baja[id_baja])
+        if id_baja in userjabber_baja:
+            services_jabber = ','.join(userjabber_baja[id_baja])
+        if id_baja in userproxy_baja:
+            services_proxy = ','.join(userproxy_baja[id_baja])
+
+        sendmail(solapin_baja, user_name, apellidos, dir_name, services_mail, services_jabber, services_proxy)
 
 
-# print usuarios_a_dar_baja
-print usermail_baja
-print userproxy_baja
-print userjabber_baja
+        # print usuarios_a_dar_baja
+        # print usermail_baja
+        # print userproxy_baja
+        # print userjabber_baja
