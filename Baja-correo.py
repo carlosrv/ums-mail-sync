@@ -65,6 +65,7 @@ for row_ums in cur_ums_accounts:
     if row_ums[10] and row_ums[1] == 1:
         solapin_ums = row_ums[10]
         name_ums = row_ums[5]
+        last_name_ums = row_ums[6]
         account_id = row_ums[0]
         # print 'solapin ums: ', solapin_ums
         if is_baja(solapin_ums) == 1:
