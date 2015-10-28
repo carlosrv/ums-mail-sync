@@ -7,12 +7,12 @@ import smtplib
 from config import *
 # User and password for mail
 
-def sendmail(solapin_baja):
+def sendmail(solapin_baja, name, lastname, area):
     user = email_user
     user_pwd = email_pass
     TO = email_to
     SUBJECT = email_subject
-    TEXT = email_body %solapin_baja
+    TEXT = email_body % (name, lastname, area, solapin_baja)
     server = smtplib.SMTP(email_host)
     server.ehlo()
     server.starttls()
@@ -80,7 +80,7 @@ cur_ums_accounts.close()
 # Dar baja de UMS ponerlo inactivo
 def ums_baja(solapin_baja):
     cur_ums_accounts = ums_accounts_conn.cursor()
-    cur_ums_accounts.execute("UPDATE accounts_account SET active=0 WHERE entity_ID ='%s'" % (solapin_baja))
+    # cur_ums_accounts.execute("UPDATE accounts_account SET active=0 WHERE entity_ID ='%s'" % (solapin_baja))
     cur_ums_accounts.close()
     sendmail(solapin_baja)
     return 1
@@ -94,7 +94,7 @@ def mail_baja(id_baja, table, active, list, number_row):
             id_mail = mail_ums[0]
             # print id_mail
             if mail_ums[1] == 1:
-                cur_ums_mail.execute("UPDATE %s SET %s=0 WHERE id ='%s'" % (table, active, id_mail))
+                # cur_ums_mail.execute("UPDATE %s SET %s=0 WHERE id ='%s'" % (table, active, id_mail))
                 list.append([id_baja, usermail])
     cur_ums_mail.close()
     return 1
