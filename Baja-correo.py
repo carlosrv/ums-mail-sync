@@ -58,9 +58,9 @@ def is_baja(solapin_ums):
 
 
 usuarios_a_dar_baja = []
-usermail_baja = []
-userproxy_baja = []
-userjabber_baja = []
+usermail_baja = {}
+userproxy_baja = {}
+userjabber_baja = {}
 
 for row_ums in cur_ums_accounts:
     if row_ums[10] and row_ums[1] == 1:
@@ -101,9 +101,15 @@ def mail_baja(id_baja, table, active, list, number_row):
             # print id_mail
             if mail_ums[1] == 1:
                 # cur_ums_mail.execute("UPDATE %s SET %s=0 WHERE id ='%s'" % (table, active, id_mail))
-                list.append([id_baja, usermail])
+                # list.append([id_baja, usermail])
+                if id_baja in list:
+                    list[id_baja].append(usermail)
+                else:
+                    list[id_baja] = [usermail]
     cur_ums_mail.close()
     return 1
+
+
 
 for suspend_service in usuarios_a_dar_baja:
     solapin_baja = suspend_service[0]
@@ -116,10 +122,10 @@ for suspend_service in usuarios_a_dar_baja:
         mail_baja(id_baja, 'accounts_mailaccount', 'mail_active', usermail_baja, 5)
         mail_baja(id_baja, 'accounts_jabberaccount', 'jabber_active', userjabber_baja, 4)
         mail_baja(id_baja, 'accounts_proxyaccount', 'proxy_active', userproxy_baja, 4)
-        sendmail(solapin_baja, user_name, apellidos, dir_name)
+        # sendmail(solapin_baja, user_name, apellidos, dir_name)
 
 
 # print usuarios_a_dar_baja
 print usermail_baja
-# print userproxy_baja
-# print userjabber_baja
+print userproxy_baja
+print userjabber_baja
