@@ -67,9 +67,13 @@ for row_ums in cur_ums_accounts:
         name_ums = row_ums[5]
         last_name_ums = row_ums[6]
         account_id = row_ums[0]
+        departament_id = row_ums[12]
         # print 'solapin ums: ', solapin_ums
         if is_baja(solapin_ums) == 1:
-            usuarios_a_dar_baja.append(solapin_ums.strip())
+            cur_ums_accounts.execute("SELECT * FROM accounts_department WHERE area_id='%s'" % departament_id)
+            for depart_name in cur_ums_accounts:
+                departament_name = depart_name[1]
+            usuarios_a_dar_baja.append([solapin_ums.strip(), name_ums.strip(), int(account_id), departament_name, last_name_ums])
 
 
 # Cerrar la conexion con la db
