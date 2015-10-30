@@ -7,6 +7,8 @@ import smtplib
 from config import *
 # User and password for mail
 
+
+# function for send mail with the name, last name, and the services that each user have in UMS
 def sendmail(solapin_baja, name, lastname, area, services_mail, services_jabber, services_proxy):
     user = email_user
     user_pwd = email_pass
@@ -43,9 +45,7 @@ cur_ums_accounts = ums_accounts_conn.cursor()
 cur_ums_accounts.execute("SELECT * FROM accounts_account")
 
 
-# for row_eko in cur_eko_accounts:
-#     print row_eko[1]
-
+# funtion ask if the user is in the EKO database
 def is_baja(solapin_ums):
     cur_eko_accounts = econ_accounts_conn.cursor()
     cur_eko_accounts.execute("SELECT * FROM Empleados_Gral WHERE Id_Empleado = %d", solapin_ums)
