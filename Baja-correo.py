@@ -45,7 +45,7 @@ cur_ums_accounts = ums_accounts_conn.cursor()
 cur_ums_accounts.execute("SELECT * FROM accounts_account")
 
 
-# funtion ask if the user is in the EKO database
+# funtion ask if the user is in the EKO database comment
 def is_baja(solapin_ums):
     cur_eko_accounts = econ_accounts_conn.cursor()
     cur_eko_accounts.execute("SELECT * FROM Empleados_Gral WHERE Id_Empleado = %d", solapin_ums)
