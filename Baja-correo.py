@@ -7,12 +7,12 @@ import smtplib
 from config import *
 # User and password for mail
 
-def sendmail(solapin_baja, name, lastname, area, services_mail, services_jabber, service_proxy):
+def sendmail(solapin_baja, name, lastname, area, services_mail, services_jabber, services_proxy):
     user = email_user
     user_pwd = email_pass
     TO = email_to
     SUBJECT = email_subject
-    TEXT = email_body % (name, lastname, area, solapin_baja, services_mail, services_jabber, service_proxy)
+    TEXT = email_body % (name, lastname, area, solapin_baja, services_mail, services_jabber, services_proxy)
     server = smtplib.SMTP(email_host)
     server.ehlo()
     server.starttls()
