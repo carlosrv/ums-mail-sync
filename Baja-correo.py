@@ -9,7 +9,7 @@ from config import *
 
 
 # function for send mail with the name, last name, and the services that each user have in UMS
-def sendmail(solapin_baja, name, lastname, area, services_mail, services_jabber, services_proxy):
+def send_mail(solapin_baja, name, lastname, area, services_mail, services_jabber, services_proxy):
     user = email_user
     user_pwd = email_pass
     TO = email_to
@@ -25,7 +25,7 @@ def sendmail(solapin_baja, name, lastname, area, services_mail, services_jabber,
        '', TEXT])
     server.sendmail(user, [TO], BODY)
     print ('email sent')
-    # print TEXT
+    print TEXT
 
 # Connect to Mysql - UMS Accounts
 ums_accounts_conn = MySQLdb.connect(host=ums_host,  # your host, usually localhost
@@ -87,7 +87,7 @@ cur_ums_accounts.close()
 # Dar baja de UMS ponerlo inactivo
 def ums_baja(solapin_baja):
     cur_ums_accounts = ums_accounts_conn.cursor()
-    # cur_ums_accounts.execute("UPDATE accounts_account SET active=0 WHERE entity_ID ='%s'" % (solapin_baja))
+    cur_ums_accounts.execute("UPDATE accounts_account SET active=0 WHERE entity_ID ='%s'" % (solapin_baja))
     cur_ums_accounts.close()
     # sendmail(solapin_baja, user_name, last_name, dir_name)
     return 1
@@ -102,7 +102,7 @@ def mail_baja(id_baja, table, active, list, number_row):
             id_mail = mail_ums[0]
             # print id_mail
             if mail_ums[1] == 1:
-                # cur_ums_mail.execute("UPDATE %s SET %s=0 WHERE id ='%s'" % (table, active, id_mail))
+                cur_ums_mail.execute("UPDATE %s SET %s=0 WHERE id ='%s'" % (table, active, id_mail))
                 # list.append([id_baja, usermail])
                 if id_baja in list:
                     list[id_baja].append(usermail)
@@ -135,7 +135,7 @@ for suspend_service in usuarios_a_dar_baja:
         if id_baja in userproxy_baja:
             services_proxy = ','.join(userproxy_baja[id_baja])
 
-        sendmail(solapin_baja, user_name, apellidos, dir_name, services_mail, services_jabber, services_proxy)
+        send_mail(solapin_baja, user_name, apellidos, dir_name, services_mail, services_jabber, services_proxy)
 
 
         # print usuarios_a_dar_baja
