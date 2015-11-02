@@ -3,6 +3,7 @@
 import MySQLdb
 import pymssql
 import smtplib
+import time
 
 from config import *
 # User and password for mail
@@ -25,7 +26,26 @@ def send_mail(solapin_baja, name, lastname, area, services_mail, services_jabber
        '', TEXT])
     server.sendmail(user, [TO], BODY)
     print ('email sent')
+    # print TEXT
+
+def testmail():
+    user = email_user
+    user_pwd = email_pass
+    TO = email_to
+    SUBJECT = "Ejecucion del Script de actulizacion de de UMS"
+    TEXT = "El script de actualizacion de bajas de los servicios de red fu ejecutado el %s " % (time.strftime("%c"))
+    server = smtplib.SMTP(email_host)
+    server.ehlo()
+    server.starttls()
+    server.login(user, user_pwd)
+    BODY = '\r\n'.join(['To: %s' % TO,
+       'From: %s' % user,
+       'Subject: %s' % SUBJECT,
+       '', TEXT])
+    server.sendmail(user, [TO], BODY)
+    print ('email sent')
     print TEXT
+
 
 # Connect to Mysql - UMS Accounts
 ums_accounts_conn = MySQLdb.connect(host=ums_host,  # your host, usually localhost
@@ -43,6 +63,7 @@ econ_accounts_conn = pymssql.connect(host=eco_host,
 # UMS cursors
 cur_ums_accounts = ums_accounts_conn.cursor()
 cur_ums_accounts.execute("SELECT * FROM accounts_account")
+
 
 
 # funtion ask if the user is in the EKO database comment
@@ -137,7 +158,7 @@ for suspend_service in usuarios_a_dar_baja:
 
         send_mail(solapin_baja, user_name, apellidos, dir_name, services_mail, services_jabber, services_proxy)
 
-
+testmail()
         # print usuarios_a_dar_baja
         # print usermail_baja
         # print userproxy_baja
