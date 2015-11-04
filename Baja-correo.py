@@ -33,7 +33,7 @@ def testmail():
     user_pwd = email_pass
     TO = email_to
     SUBJECT = "Ejecucion del Script de actulizacion de de UMS"
-    TEXT = "El script de actualizacion de bajas de los servicios de red fu ejecutado el %s " % (time.strftime("%c"))
+    TEXT = "El script de actualizacion de bajas de los servicios de red fue ejecutado el %s " % (time.strftime("%c"))
     server = smtplib.SMTP(email_host)
     server.ehlo()
     server.starttls()
