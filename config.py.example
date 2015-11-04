@@ -7,6 +7,11 @@ ums_user = "user"
 ums_pass = "pass"
 ums_db = "db"
 
+# Planillas
+planillas_user = "root"
+planillas_pass = "mysql.root"
+planillas_db = "planillas"
+
 #Economia
 eco_host = '10.37.34.247'
 eco_user = 'user'
@@ -20,3 +25,27 @@ email_pass = "123456"
 email_to = "red@example.edu.cu"
 email_subject = "Usuarios Bajas de UMS"
 email_body = 'El usuario %s fue dado de baja por Economia y de los Servicios de Red'
+
+
+direcciones = {'10': 'AREA_NAME1',
+               '11': 'AREA_NAME2',
+               '20': 'AREA_NAME3',
+               '21': 'AREA_NAME4',
+               '22': 'AREA_NAME5',
+               '23': 'AREA_NAME6',
+               '30': 'AREA_NAME7',
+               '31': 'AREA_NAME8',
+               '32': 'AREA_NAME9',
+               '33': 'AREA_NAME10',
+               '34': 'AREA_NAME11',
+               '35': 'AREA_NAME12',
+               '36': 'AREA_NAME13',
+               '37': 'AREA_NAME14',
+               '38': 'AREA_NAME15',
+               '39': 'AREA_NAME16',
+               '40': 'AREA_NAME17',
+               '41': 'AREA_NAME18',
+               '42': 'AREA_NAME19',
+               '50': 'AREA_NAME20',
+               '99': 'AREA_NAME21',
+               }
